@@ -1,42 +1,17 @@
-import { createDoubleClickListener } from "./utils/fullscreen";
-import scene from "./scene";
-import canvas from "./canvas";
-import cube from "./meshes/cube";
-import { ambientLight, directionalLight, hemisphereLight } from "./lights";
-import { tick } from "./timer";
-import sphere from "./meshes/sphere";
-import torus from "./meshes/torus";
-import floor from "./meshes/floor";
-import axesHelper from "./helpers/axesHelper";
-import {
-  directionalLightHelper,
-  hemisphereLightHelper,
-} from "./helpers/lightHelpers";
-import { directionalLightShadowCameraHelper } from "./helpers/shadowCameraHelpers";
+import { createSandbox } from "./engine/sandbox";
+import { isoPlayground } from "./dioramas/isoPlayground";
+// import { starterShowcase } from "./dioramas/starterShowcase";
+// import { basicBackdrop } from "./backdrops/basic";
+// import { liquidSphere } from "./features/liquid-sphere";
 
-function main() 
-{
-  // Meshes
-  scene.add(cube);
-  scene.add(sphere);
-  scene.add(torus);
-  scene.add(floor);
+const sandbox = createSandbox(document.getElementById("c") as HTMLCanvasElement);
 
-  // Lights
-  scene.add(ambientLight);
-  scene.add(hemisphereLight);
-  scene.add(directionalLight);
+// Pick what to look at. Run a diorama...
+isoPlayground(sandbox);
+// starterShowcase(sandbox);
 
-  // Helpers
-  scene.add(axesHelper);
-  scene.add(hemisphereLightHelper);
-  scene.add(directionalLightHelper);
-  scene.add(directionalLightShadowCameraHelper);
+// ...or test one feature on its own:
+// sandbox.use(basicBackdrop());
+// sandbox.use(liquidSphere());
 
-  // EventListeners
-  createDoubleClickListener(canvas);
-
-  tick();
-}
-
-main();
+sandbox.start();

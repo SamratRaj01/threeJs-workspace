@@ -49,6 +49,56 @@ bun run dev
 ```
 Open your browser and visit http://localhost:5173.
 
+## How the sandbox is organised 🧩
+
+This repo is a sandbox for trying out web/3D features in isolation and then combining them.
+
+```
+src/
+  engine/      the small core: renderer, frame loop, GUI, keys, cleanup. Rarely changes.
+  backdrops/   reusable environments (camera, lights, ground): basic, iso, studio
+  features/    one folder per thing you're testing (iso-capsule, liquid-sphere, blob-shadow, ...)
+  dioramas/    small scenes that combine a backdrop with several features
+  main.ts      pick what to run
+```
+
+**Test one feature on its own** by editing `src/main.ts`:
+
+```ts
+sandbox.use(basicBackdrop());
+sandbox.use(liquidSphere());
+```
+
+**Run a diorama:**
+
+```ts
+isoPlayground(sandbox);
+```
+
+**Add a feature** by creating `src/features/<name>/index.ts`:
+
+```ts
+export const spring = (opts = { stiffness: 120 }) =>
+  defineFeature({
+    name: "Spring",
+    setup(ctx) {
+      const params = { ...opts };
+      ctx.gui.add(params, "stiffness", 0, 500); // tweak live
+      const ball = new THREE.Mesh(/* ... */);
+      ctx.add(ball); // removed automatically on dispose
+      ctx.onUpdate((dt) => { /* simulate */ });
+      return { ball }; // returned from sandbox.use(), so dioramas can wire features together
+    },
+  });
+```
+
+Rules that keep features reusable:
+
+- A feature only touches the page through `ctx` (scene, gui, keys, onUpdate, onDispose...). Never create globals when a module is imported.
+- Features don't import each other. If one needs another (a shadow following the capsule), the diorama passes it in as an option.
+- `engine/` never imports from backdrops, features or dioramas.
+- Use `onUpdate` for things that move and `onLateUpdate` for things that follow (cameras, shadows, HUDs), so `use()` order rarely matters.
+
 ## Building Your Project 🏗️
 
 To build the project for production:
