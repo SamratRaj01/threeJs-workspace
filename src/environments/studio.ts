@@ -5,9 +5,9 @@ import { loadTexture } from "../engine/assets";
 import cobbleDiff from "../../static/textures/cobble/grassy_cobblestone_diff_1k.jpg";
 
 // The original starter look: cobblestone floor, three tunable lights, real shadows, helpers
-export const studioBackdrop = () =>
+export const studioEnvironment = () =>
   defineFeature({
-    name: "Studio Backdrop",
+    name: "Studio Environment",
     setup(ctx) {
       const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 100);
       camera.position.z = 2;

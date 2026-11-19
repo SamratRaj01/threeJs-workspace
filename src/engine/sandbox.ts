@@ -22,7 +22,7 @@ export type FeatureContext = {
 };
 
 // A feature is a named setup function. Whatever setup returns is handed back by sandbox.use(),
-// which is how a diorama wires features together (e.g. give the shadow the capsule to follow).
+// which is how a demo wires features together (e.g. give the shadow the capsule to follow).
 export type Feature<API = void> = {
   name: string;
   setup(ctx: FeatureContext): API;
@@ -36,8 +36,8 @@ export type Sandbox = {
   dispose(): void;
 };
 
-// A ready-made combination of a backdrop and features
-export type Diorama = (sandbox: Sandbox) => void;
+// A ready-made combination of a environment and features
+export type Demo = (sandbox: Sandbox) => void;
 
 export const createSandbox = (canvas: HTMLCanvasElement): Sandbox => {
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
@@ -50,7 +50,7 @@ export const createSandbox = (canvas: HTMLCanvasElement): Sandbox => {
   const timer = new THREE.Timer();
   timer.connect(document);
 
-  // Used until a backdrop calls setCamera
+  // Used until a environment calls setCamera
   let camera: THREE.Camera = new THREE.PerspectiveCamera(75, 2, 0.1, 100);
   camera.position.set(0, 2, 5);
   let forceResize = true;

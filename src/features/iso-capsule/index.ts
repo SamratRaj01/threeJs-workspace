@@ -9,7 +9,7 @@ import { Dash } from "./mechanics/dash";
 type Options = { bindings?: Bindings };
 
 // A capsule you drive with WASD / arrows, Space to jump, Shift to dash.
-// Movement directions assume a camera on the (1, 1, 1) diagonal (see backdrops/iso).
+// Movement directions assume a camera on the (1, 1, 1) diagonal (see environments/iso).
 // New mechanic = create it, expose its tuning here, list it under the states it works in.
 export const isoCapsule = ({ bindings = defaultBindings }: Options = {}) =>
   defineFeature({

@@ -3,9 +3,9 @@ import { defineFeature } from "../engine/sandbox";
 
 // Orthographic camera on the (1, 1, 1) diagonal over a grey grid floor.
 // Call follow(object) on what setup returns to keep the camera centered on something.
-export const isoBackdrop = ({ viewSize = 10 } = {}) =>
+export const isoEnvironment = ({ viewSize = 10 } = {}) =>
   defineFeature({
-    name: "Iso Backdrop",
+    name: "Iso Environment",
     setup(ctx) {
       const settings = { viewSize }; // how many world units fit vertically on screen
       const offset = new THREE.Vector3(10, 10, 10);

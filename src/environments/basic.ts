@@ -4,9 +4,9 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { defineFeature } from "../engine/sandbox";
 
 // Neutral place to look at one feature on its own: orbit camera, grid, simple lights
-export const basicBackdrop = ({ background = "#1e2124" } = {}) =>
+export const basicEnvironment = ({ background = "#1e2124" } = {}) =>
   defineFeature({
-    name: "Backdrop",
+    name: "Environment",
     setup(ctx) {
       const camera = new THREE.PerspectiveCamera(60, 2, 0.1, 200);
       camera.position.set(3, 3, 5);
